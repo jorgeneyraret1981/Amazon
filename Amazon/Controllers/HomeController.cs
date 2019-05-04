@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Amazon.Models;
+using Amazon.Models.Extensions;
 
 namespace Amazon.Controllers
 {
@@ -16,11 +17,11 @@ namespace Amazon.Controllers
             //  return View("Index");       SI NO SE COLOCA NOMBRE ASUME EL Index()
             // return View();
 
-            int hour = DateTime.Now.Hour;
-            ViewBag.Greeting = hour < 12 ? "Goog Morning" : "Goog Afternoon";
+            BookRepository.FillBooks();
+            return View("Index");
 
-            return View("MyView");
         }
+
         [HttpGet]
         public ViewResult RegBookForm() {
             return View();
@@ -44,9 +45,18 @@ namespace Amazon.Controllers
         {
             //return View(BookRepository.Books.Where(b => b.Price > 100)); Libros caros 
             //return View(BookRepository.Books.Where(b => b.Price < 100)); Libros baratos 
-            return View(BookRepository.Books);
+            //ViewBag.TotalPrice = BookRepository.TotalPrice();
+            // return View(BookRepository.Responses);
+            //  return View(BookRepository.Books);
+              //return View(BookRepository.Books);
+
+            IEnumerable<Book> books = BookRepository.FilterBookByPagesRatherThan(250);
+            decimal TotalPrice = books.TotalPriceExtension();
+            ViewBag.TotalPrice = TotalPrice;
+            return View(books);
+
         }
-         // TODO: store reponse from visitor return View(); }
+        // TODO: store reponse from visitor return View(); }
         [HttpGet]
         public IActionResult About()
         {
@@ -66,11 +76,6 @@ namespace Amazon.Controllers
         {
             return View();
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+     
     }
 }
