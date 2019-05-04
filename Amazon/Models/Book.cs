@@ -17,5 +17,6 @@ namespace Amazon.Models
         public decimal? Price { get; set; }
         [Required(ErrorMessage = "Porfavor ingresa un Nro de Paginas")]
         public int? NroPages { get; set; }
+        public LevelStock LevelStock { get; set; } = LevelStock.InStock;
     }
 }

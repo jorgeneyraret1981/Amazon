@@ -22,25 +22,52 @@ namespace Amazon.Models
 
         public static List<Book> FillBooks()
         {
-            Book book1 = new Book()
+            if (!Books.Any())
             {
-                ISBN = "123456789",
-                Author = "Giancarlo G",
-                NroPages = 210,
-                Price = 270,
-                Title = "How to Program ASP.NET MVC"
-            };
-            Book book2 = new Book()
-            {
-                ISBN = "521648597",
-                Author = "Giancarlo G",
-                NroPages = 3200,
-                Price = 3000,
-                Title = "How to Program C#"
-            };
-            books.Add(book1);
-            books.Add(book2);
-            books.Add(null);
+                Book book1 = new Book()
+                {
+                    ISBN = "123456789",
+                    Author = "Giancarlo G",
+                    NroPages = 260,
+                    Price = 270,
+                    Title = "How to Program ASP.NET MVC",
+                    LevelStock = LevelStock.SoldOut
+                };
+                Book book2 = new Book()
+                {
+                    ISBN = "521648597",
+                    Author = "Giancarlo G",
+                    NroPages = 3200,
+                    Price = 3000,
+                    Title = "How to Program C#",
+                    LevelStock = LevelStock.InStock
+
+                };
+                Book book3 = new Book()
+                {
+                    ISBN = "521648597",
+                    Author = "Giancarlo G",
+                    NroPages = 3200,
+                    Price = 3000,
+                    Title = "How to Program C#123",
+                    LevelStock = LevelStock.SoldOut
+                };
+                Book book4 = new Book()
+                {
+                    ISBN = "521648597",
+                    Author = "Giancarlo G",
+                    NroPages = 3200,
+                    Price = 3000,
+                    Title = "How to Program C#456",
+                    LevelStock = LevelStock.SoldOut
+                };
+                books.Add(book1);
+                books.Add(book2);
+                books.Add(book3);
+                books.Add(book4);
+                books.Add(null);
+            }
+           
             return books;
         }
         public static decimal TotalPrice()
