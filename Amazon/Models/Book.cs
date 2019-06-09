@@ -19,5 +19,6 @@ namespace Amazon.Models
         [Required(ErrorMessage = "Porfavor ingresa un Nro de Paginas")]
         public int? NroPages { get; set; }
         public LevelStock LevelStock { get; set; } = LevelStock.InStock;
+        public string Category { get; set; }
     }
 }

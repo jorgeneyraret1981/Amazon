@@ -99,15 +99,29 @@ namespace Amazon
             });
 
             app.UseDeveloperExceptionPage();
-                app.UseStatusCodePages();
-                app.UseStaticFiles();
-                app.UseMvc(routes => {
-                    routes.MapRoute(name: "pagination", template: "Books/Page{bookPage}", defaults: new { Controller = "Book", action = "List" });
-
-                    routes.MapRoute(name: "default", template: "{controller=Book}/{action=List}/{id?}");
-
-
-                });
+            app.UseStatusCodePages();
+            app.UseStaticFiles();
+            app.UseMvc(routes => {
+                routes.MapRoute(
+                name: null,
+                template: "{category}/Page{bookPage:int}",
+                defaults: new { controller = "Book", action = "List" });
+                routes.MapRoute(
+                name: null,
+                template: "Page{bookPage:int}",
+                defaults: new { controller = "Book", action = "List", bookPage = 1 });
+                routes.MapRoute(
+                name: null,
+                template: "{category}",
+                defaults: new { controller = "Book", action = "List", bookPage = 1 });
+                routes.MapRoute(
+                name: null,
+                template: "",
+                defaults: new { controller = "Book", action = "List", bookPage = 1 });
+                routes.MapRoute(
+                name: null,
+                template: "{controller}/{action}/{id?}");
+            });
         }
     }
 }
